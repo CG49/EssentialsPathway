@@ -22,6 +22,11 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         if (rb == null) Debug.LogWarning("PlayerController needs a Rigidbody.");
+
+        Debug.Log(
+        "Collectibles found: " +
+        FindObjectsByType<Collectible>().Length
+    );
     }
 
     private void Update()

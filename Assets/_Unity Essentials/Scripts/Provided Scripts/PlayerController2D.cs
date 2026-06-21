@@ -11,7 +11,7 @@ public class PlayerController2D : MonoBehaviour
     
     public InputActionReference moveAction;
 
-    // Private variables 
+    // Private variables
     private Rigidbody2D rb; // Reference to the Rigidbody2D component attached to the player
     private Vector2 movement; // Stores the direction of player movement
     private bool isMovingHorizontally = true; // Flag to track if the player is moving horizontally

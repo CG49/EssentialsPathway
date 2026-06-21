@@ -5,6 +5,9 @@ using System; // Required for Type handling
 public class UpdateCollectibleCount : MonoBehaviour
 {
     private TextMeshProUGUI collectibleText; // Reference to the TextMeshProUGUI component
+    private bool celebrationPlayed = false;
+
+    public ParticleSystem celebrationEffect;
 
     void Start()
     {
@@ -37,6 +40,17 @@ public class UpdateCollectibleCount : MonoBehaviour
 #endif
         }
 
+        // Check and count objects of type Collectible
+        Type collectible3DType = Type.GetType("Collectible");
+        if (collectible3DType != null)
+        {
+#if UNITY_6000_3_OR_NEWER
+            totalCollectibles += FindObjectsByType(collectible3DType).Length;
+#else
+            totalCollectibles += FindObjectsByType(collectible3DType, FindObjectsSortMode.None).Length;
+#endif
+        }
+
         // Optionally, check and count objects of type Collectible2D as well if needed
         Type collectible2DType = Type.GetType("Collectible2D");
         if (collectible2DType != null)
@@ -50,5 +64,12 @@ public class UpdateCollectibleCount : MonoBehaviour
 
         // Update the collectible count display
         collectibleText.text = $"Collectibles remaining: {totalCollectibles}";
+
+        if (totalCollectibles <= 75 && !celebrationPlayed)
+        {
+            celebrationPlayed = true;
+
+            celebrationEffect.Play();
+        }
     }
 }
