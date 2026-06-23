@@ -63,11 +63,15 @@ public class UpdateCollectibleCount : MonoBehaviour
         }
 
         // Update the collectible count display
-        collectibleText.text = $"Collectibles remaining: {totalCollectibles}";
+        if (!celebrationPlayed)
+        {
+            collectibleText.text = $"Collectibles remaining: {totalCollectibles}";
+        }
 
-        if (totalCollectibles <= 75 && !celebrationPlayed)
+        if (totalCollectibles == 0 && !celebrationPlayed)
         {
             celebrationPlayed = true;
+            collectibleText.text = "Congratulations!!! <sprite name=\"confetti_ball\"> <sprite name=\"party_face\"> <sprite name=\"party_popper\">";
 
             celebrationEffect.Play();
         }
